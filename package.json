@@ -60,17 +60,10 @@
     "react": "*"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    "node": "./dist/index.cjs",
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.js",
-    "default": "./dist/index.cjs"
-  },
+  "main": "src/index.ts",
   "type": "module",
   "publishConfig": {
     "access": "public"

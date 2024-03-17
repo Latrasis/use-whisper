@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from 'react'
 import type { Options, RecordRTCPromisesHandler } from 'recordrtc'
 import {
   defaultStopTimeout,
-  ffmpegCoreUrl,
-  silenceRemoveCommand,
-  whisperApiEndpoint,
+  FFMPEG_CORE_URL,
+  SILENCE_REMOVE_COMMAND,
+  WHISPER_API_ENDPOINT,
 } from './configs'
 import {
   UseWhisperConfig,
@@ -386,7 +386,7 @@ export const useWhisper: UseWhisperHook = (config) => {
             const { createFFmpeg } = await import('@ffmpeg/ffmpeg')
             const ffmpeg = createFFmpeg({
               mainName: 'main',
-              corePath: ffmpegCoreUrl,
+              corePath: FFMPEG_CORE_URL,
               log: true,
             })
             if (!ffmpeg.isLoaded()) {
@@ -405,7 +405,7 @@ export const useWhisper: UseWhisperHook = (config) => {
               '-ar', // Audio sample rate
               '44100',
               '-af', // Audio filter = remove silence from start to end with 2 seconds in between
-              silenceRemoveCommand,
+              SILENCE_REMOVE_COMMAND,
               'out.mp3' // Output
             )
             const out = ffmpeg.FS('readFile', 'out.mp3')
@@ -519,7 +519,7 @@ export const useWhisper: UseWhisperHook = (config) => {
         headers['Authorization'] = `Bearer ${apiKey}`
       }
       const { default: axios } = await import('axios')
-      const response = await axios.post(whisperApiEndpoint + mode, body, {
+      const response = await axios.post((whisperConfig?.baseUrl ?? WHISPER_API_ENDPOINT )+ mode, body, {
         headers,
       })
       return response.data.text

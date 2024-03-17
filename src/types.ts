@@ -39,5 +39,6 @@ export type WhisperApiConfig = {
   prompt?: string
   response_format?: 'json' | 'text' | 'srt' | 'verbose_json' | 'vtt'
   temperature?: number
-  language?: string
+  language?: string,
+  baseUrl?: string,
 }
